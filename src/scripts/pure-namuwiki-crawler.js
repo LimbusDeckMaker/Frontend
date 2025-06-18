@@ -400,44 +400,47 @@ class MonacoClipboardExtractor {
         });
     }
 
-    // 텍스트를 파일로 저장
+    // 텍스트를 파일로 저장 (새로운 경로 구조: src/scripts/raw/)
     async saveTextToFile(text, filename = null) {
-        try {
-            if (!text || text.length === 0) {
-                console.log('❌ 저장할 텍스트가 없습니다.');
-                return null;
-            }
+    try {
+    if (!text || text.length === 0) {
+    console.log('❌ 저장할 텍스트가 없습니다.');
+    return null;
+    }
 
-            // 캐릭터 인격 이름 추출
-            let personaName = null;
-            const match = text.match(/====#\s*([^#\n]+)\s*#====/);
-            if (match) {
-                personaName = match[1].replace(/\s+/g, '_');
-            } else {
-                // 첫 줄에서 추출 시도 (예비)
-                const firstLine = text.split('\n')[0].trim();
-                if (firstLine.length > 0) {
-                    personaName = firstLine.replace(/\s+/g, '_').slice(0, 30);
-                }
-            }
+    // 캐릭터 인격 이름 추출
+    let personaName = null;
+    const match = text.match(/====#\s*([^#\n]+)\s*#====/); 
+    if (match) {
+    personaName = match[1].replace(/\s+/g, '_');
+    } else {
+    // 첫 줄에서 추출 시도 (예비)
+    const firstLine = text.split('\n')[0].trim();
+    if (firstLine.length > 0) {
+    personaName = firstLine.replace(/\s+/g, '_').slice(0, 30);
+    }
+    }
 
-            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
-            const finalFilename = filename || (personaName ? `${personaName}.txt` : `monaco_extract_${timestamp}.txt`);
-            const outputDir = path.join(process.cwd(), 'src/data/characters/');
-            
-            if (!fs.existsSync(outputDir)) {
-                fs.mkdirSync(outputDir, { recursive: true });
-            }
-            
-            const filePath = path.join(outputDir, finalFilename);
-            fs.writeFileSync(filePath, text, 'utf8');
-            
-            console.log(`💾 텍스트가 저장되었습니다: ${filePath}`);
-            console.log(`📊 저장된 텍스트 크기: ${text.length}자`);
-            
-            return filePath;
-            
-        } catch (error) {
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+    const finalFilename = filename || (personaName ? `${personaName}.txt` : `namuwiki_extract_${timestamp}.txt`);
+    
+    // 새로운 경로: src/scripts/raw/
+    const outputDir = path.join(process.cwd(), 'src/scripts/raw/');
+    
+    if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+    }
+    
+    const filePath = path.join(outputDir, finalFilename);
+    fs.writeFileSync(filePath, text, 'utf8');
+    
+    console.log(`💾 텍스트가 저장되었습니다: ${filePath}`);
+    console.log(`📊 저장된 텍스트 크기: ${text.length}자`);
+    console.log(`📁 저장 경로: src/scripts/raw/${finalFilename}`);
+        
+    return filePath;
+    
+    } catch (error) {
             console.error('❌ 파일 저장 오류:', error);
             return null;
         }
@@ -553,13 +556,18 @@ async function main() {
     const args = process.argv.slice(2);
     
     if (args.length < 1) {
-        console.log('❌ 사용법: node monaco-extractor.js <나무위키 URL> [파일명]');
-        console.log('예시: node monaco-extractor.js "https://namu.wiki/w/...#s-2.3.7" "character_data"');
+        console.log('❌ 사용법: npm run crawling <나무위키 URL> [파일명]');
+        console.log('예시: npm run crawling "https://namu.wiki/w/...#s-2.3.7" "meursault_data"');
         console.log('');
         console.log('💡 주의사항:');
         console.log('  - 브라우저가 열린 상태에서 작업됩니다 (클립보드 접근 필요)');
         console.log('  - macOS에서는 Cmd+A, Cmd+C 사용');
         console.log('  - Windows/Linux에서는 Ctrl+A, Ctrl+C 사용');
+        console.log('');
+        console.log('📁 파일 경로:');
+        console.log('  - 추출된 텍스트: src/scripts/raw/');
+        console.log('  - 변환된 JSON: src/scripts/converted/');
+        console.log('  - 최종 데이터: src/data/characters/ (수동 복사)');
         process.exit(1);
     }
 
@@ -602,15 +610,29 @@ async function main() {
         console.log(`  - 줄 수: ${lines}`);
         console.log(`  - 단어 수: ${words}`);
         console.log(`  - 문자 수: ${result.length}`);
+        console.log(`📁 파일 위치: src/scripts/raw/`);
         
-        // 추출 후 자동 변환
+        // 추출 후 자동 변환 (강화된 AI 파서 사용)
         if (result && result.filePath) {
             try {
+                console.log('\n🤖 추출된 텍스트를 강화된 AI 파서로 JSON 변환 중...');
+                console.log(`📁 입력 파일: ${result.filePath}`);
+                
                 const parseScript = path.join(__dirname, 'parse_identity_ai.js');
-                console.log('🛠️ 추출된 텍스트를 AI로 JSON 변환 중...');
                 execSync(`node "${parseScript}" "${result.filePath}"`, { stdio: 'inherit' });
+                
+                console.log('\n✅ AI 변환 완료!');
+                console.log('📂 결과 파일 위치:');
+                console.log('  - Raw 텍스트: src/scripts/raw/');
+                console.log('  - 변환된 JSON: src/scripts/converted/');
+                console.log('\n💡 다음 단계:');
+                console.log('1. src/scripts/converted/ 폴더에서 결과 JSON 확인');
+                console.log('2. 필요시 데이터 수정 후 src/data/characters/ 폴더로 복사');
+                
             } catch (e) {
                 console.error('❌ AI JSON 변환 중 오류:', e.message);
+                console.log('\n🔧 수동 변환 방법:');
+                console.log(`npm run parse-identity-ai "${result.filePath}"`);
             }
         }
         
