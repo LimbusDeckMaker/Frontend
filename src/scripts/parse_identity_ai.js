@@ -42,15 +42,29 @@ if (!fs.existsSync(inputPath)) {
  */
 function preprocessText(rawText) {
   let processedText = rawText;
-  
-  // 이야기 섹션 제거 (파싱에 불필요)
+
+  // 1. 4동기화 시 변경점 섹션 추출
+  let sync4ChangeSection = '';
+  const sync4Start = processedText.indexOf('4동기화 시 변경점');
+  if (sync4Start !== -1) {
+    // 다음 섹션(예: 동기화 스토리, ----, 파일 끝 등)까지 추출
+    const afterSync4 = processedText.slice(sync4Start);
+    const nextSectionIdx = afterSync4.search(/-{3,}|동기화 스토리|\\*\\s*'''/);
+    if (nextSectionIdx !== -1 && nextSectionIdx > 0) {
+      sync4ChangeSection = afterSync4.slice(0, nextSectionIdx).trim();
+    } else {
+      sync4ChangeSection = afterSync4.trim();
+    }
+  }
+
+  // 2. 이야기 섹션 제거
   const storyIdx = processedText.indexOf('이야기');
   if (storyIdx !== -1) {
     processedText = processedText.slice(0, storyIdx);
     console.log('📝 "이야기" 섹션 제거됨');
   }
-  
-  // 기타 불필요한 섹션 제거
+
+  // 3. 기타 불필요한 섹션 제거
   const unnecessarySections = ['각주', '참고 문헌', '외부 링크', '분류'];
   unnecessarySections.forEach(section => {
     const idx = processedText.indexOf(section);
@@ -59,7 +73,13 @@ function preprocessText(rawText) {
       console.log(`📝 "${section}" 섹션 제거됨`);
     }
   });
-  
+
+  // 4. 4동기화 시 변경점 복원
+  if (sync4ChangeSection) {
+    processedText = processedText.trim() + '\n\n' + sync4ChangeSection;
+    console.log('📝 "4동기화 시 변경점" 섹션 복원됨');
+  }
+
   return processedText.trim();
 }
 

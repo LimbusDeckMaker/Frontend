@@ -546,7 +546,7 @@ class MonacoClipboardExtractor {
     async close() {
         if (this.browser) {
             await this.browser.close();
-            console.log('🔚 브라우저 종료');
+            console.log('\n🔚 브라우저 종료');
         }
     }
 }
@@ -567,7 +567,6 @@ async function main() {
         console.log('📁 파일 경로:');
         console.log('  - 추출된 텍스트: src/scripts/raw/');
         console.log('  - 변환된 JSON: src/scripts/converted/');
-        console.log('  - 최종 데이터: src/data/characters/ (수동 복사)');
         process.exit(1);
     }
 
@@ -612,10 +611,10 @@ async function main() {
         console.log(`  - 문자 수: ${result.length}`);
         console.log(`📁 파일 위치: src/scripts/raw/`);
         
-        // 추출 후 자동 변환 (강화된 AI 파서 사용)
+        // 추출 후 자동 변환 (AI 파서 사용)
         if (result && result.filePath) {
             try {
-                console.log('\n🤖 추출된 텍스트를 강화된 AI 파서로 JSON 변환 중...');
+                console.log('\n🤖 추출된 텍스트를 AI 파서로 JSON 변환 중...');
                 console.log(`📁 입력 파일: ${result.filePath}`);
                 
                 const parseScript = path.join(__dirname, 'parse_identity_ai.js');
@@ -627,7 +626,6 @@ async function main() {
                 console.log('  - 변환된 JSON: src/scripts/converted/');
                 console.log('\n💡 다음 단계:');
                 console.log('1. src/scripts/converted/ 폴더에서 결과 JSON 확인');
-                console.log('2. 필요시 데이터 수정 후 src/data/characters/ 폴더로 복사');
                 
             } catch (e) {
                 console.error('❌ AI JSON 변환 중 오류:', e.message);
