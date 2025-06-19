@@ -4,11 +4,12 @@ import keywords from "@/constants/keyword.json";
 interface KeywordHighlightedProps {
   text: string;
 }
-
+// 정규식 특수문자를 이스케이프해 주는 헬퍼
+const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const KeywordHighlighted = ({ text }: KeywordHighlightedProps) => {
   if (text === "") return <span></span>;
 
-  const keywordNames = keywords.map((keyword) => keyword.name);
+  const keywordNames = keywords.map((k) => escapeRegExp(k.name));
   const regex = new RegExp(
     `(${keywordNames.join("|")}|\\[.*?\\]|정신력|\\[피아식별불가\\])`,
     "gi"
