@@ -1,0 +1,20 @@
+/* 스크롤 가능하되 바는 숨김 */
+.scrollXTouch {
+  overflow-x: auto;
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+
+  touch-action: pan-x; /* 터치로 가로 스크롤 허용 */
+  -webkit-overflow-scrolling: touch; /* iOS 모멘텀 스크롤 */
+
+  cursor: grab; /* 드래그 가능 커서 */
+  user-select: none; /* 텍스트 선택 방지 */
+}
+.scrollXTouch::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* 드래그 중일 때 */
+.dragging {
+  cursor: grabbing;
+}
