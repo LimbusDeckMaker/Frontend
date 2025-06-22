@@ -12,7 +12,7 @@ export default function DeckBuildingCard({
 
   return (
     <div
-      className="w-[100px]  sm:w-[125px]  md:w-[150px]  shrink-0 cursor-pointer"
+      className="w-[100px] sm:w-[125px] md:w-[150px] shrink-0 cursor-pointer transform transition-transform duration-200 hover:scale-105"
       onClick={(e) => {
         e.stopPropagation();
         onClick?.();

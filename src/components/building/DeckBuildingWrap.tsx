@@ -6,10 +6,13 @@ import styles from "./DeckBuildingWrap.module.css";
 import DeckBuildingCard from "./DeckBuildingCard";
 import DeckBuildingPassive from "./DeckBuildingPassive";
 import DeckBuildingResource from "./DeckBuildingResource";
+import CardModal from "./CardModal";
 import defaultCardUrls from "@/constants/defaultUrl.json";
 
 export default function DeckBuildingWrap() {
   const cards = defaultCardUrls;
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
 
   // 드래그 스크롤용
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -83,20 +86,38 @@ export default function DeckBuildingWrap() {
       </div>
       <div
         ref={scrollRef}
-        className={`${styles.scrollXTouch} ${dragging ? styles.dragging : ""} `}
-        onMouseDown={onMouseDown}
-        onMouseLeave={onMouseUpOrLeave}
-        onMouseUp={onMouseUpOrLeave}
-        onMouseMove={onMouseMove}
+        className={`${styles.scrollXTouch} ${dragging ? styles.dragging : ""}`}
+        onMouseDown={(e) => {
+          if (!openModal) onMouseDown(e);
+        }}
+        onMouseLeave={() => {
+          if (!openModal) onMouseUpOrLeave();
+        }}
+        onMouseUp={() => {
+          if (!openModal) onMouseUpOrLeave();
+        }}
+        onMouseMove={(e) => {
+          if (!openModal) onMouseMove(e);
+        }}
       >
         <div className="grid w-max grid-cols-6 grid-rows-2 gap-4 pt-2 mx-auto">
           {cards.map((url, idx) => (
             <DeckBuildingCard
               key={idx}
               url={url}
-              onClick={() => console.log("선택된 카드 index:", idx + 1)}
+              onClick={
+                !openModal
+                  ? () => {
+                      setSelectedIdx(idx);
+                      setOpenModal(true);
+                    }
+                  : undefined
+              }
             />
           ))}
+          {openModal && selectedIdx !== null && (
+            <CardModal idx={selectedIdx} onClose={() => setOpenModal(false)} />
+          )}
         </div>
       </div>
 
