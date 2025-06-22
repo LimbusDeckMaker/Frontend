@@ -6,11 +6,12 @@ import styles from "./DeckBuildingWrap.module.css";
 import DeckBuildingCard from "./DeckBuildingCard";
 import DeckBuildingPassive from "./DeckBuildingPassive";
 import DeckBuildingResource from "./DeckBuildingResource";
+import defaultCardUrls from "@/constants/defaultUrl.json";
 
 export default function DeckBuildingWrap() {
-  const cards = Array.from({ length: 12 });
+  const cards = defaultCardUrls;
 
-  // ── 드래그 스크롤용 refs/state ──
+  // 드래그 스크롤용
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDownRef = useRef(false);
   const startXRef = useRef(0);
@@ -82,17 +83,18 @@ export default function DeckBuildingWrap() {
       </div>
       <div
         ref={scrollRef}
-        className={`${styles.scrollXTouch} ${dragging ? styles.dragging : ""}`}
+        className={`${styles.scrollXTouch} ${dragging ? styles.dragging : ""} `}
         onMouseDown={onMouseDown}
         onMouseLeave={onMouseUpOrLeave}
         onMouseUp={onMouseUpOrLeave}
         onMouseMove={onMouseMove}
       >
-        <div className="grid w-max grid-cols-6 grid-rows-2 gap-4 pt-2">
-          {cards.map((_, idx) => (
+        <div className="grid w-max grid-cols-6 grid-rows-2 gap-4 pt-2 mx-auto">
+          {cards.map((url, idx) => (
             <DeckBuildingCard
               key={idx}
-              onClick={() => console.log("선택된 카드 index:", idx)}
+              url={url}
+              onClick={() => console.log("선택된 카드 index:", idx + 1)}
             />
           ))}
         </div>

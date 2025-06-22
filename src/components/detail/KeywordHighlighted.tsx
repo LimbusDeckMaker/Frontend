@@ -11,7 +11,7 @@ const KeywordHighlighted = ({ text }: KeywordHighlightedProps) => {
 
   const keywordNames = keywords.map((k) => escapeRegExp(k.name));
   const regex = new RegExp(
-    `(${keywordNames.join("|")}|\\[.*?\\]|정신력|\\[피아식별불가\\])`,
+    `(${keywordNames.join("|")}|\\[.*?\\]|정신력|\\[피아식별불가\\]|'[^']*')`,
     "gi"
   );
 
@@ -50,6 +50,12 @@ const KeywordHighlighted = ({ text }: KeywordHighlightedProps) => {
             } else if (part.toLowerCase() === "정신력") {
               return (
                 <span key={index} className="text-light-blue-200">
+                  {part}
+                </span>
+              );
+            } else if (/^'.*?'$/.test(part)) {
+              return (
+                <span key={index} className="text-red-500 font-semibold">
                   {part}
                 </span>
               );

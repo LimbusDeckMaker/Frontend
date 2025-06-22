@@ -35,7 +35,6 @@ export default function DeckBuildingResource() {
         })}
       </div>
       <div className="text-primary-100 text-3xl">공격 유형</div>
-      {/* 저항 타입 아이콘 + 숫자 */}
       <div className="flex flex-row gap-4 flex-wrap">
         {resistanceImg.map((src, idx) => (
           <div key={src} className="flex items-center gap-1">
