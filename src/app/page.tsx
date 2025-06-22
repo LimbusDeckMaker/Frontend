@@ -88,25 +88,24 @@ const menu = [
   {
     name: "인격 도감",
     image:
-      "https://limbus-image-bucket.s3.amazonaws.com/돈키호테/Identity/LCB 수감자/10301_normal.webp",
+      "https://dvc5zchnvfexa.cloudfront.net/돈키호테/Identity/LCB 수감자/10301_normal.webp",
     link: "/identity",
   },
   {
     name: "에고 도감",
-    image:
-      "https://limbus-image-bucket.s3.amazonaws.com/오티스/EGO/마탄/21108_cg.webp",
+    image: "https://dvc5zchnvfexa.cloudfront.net/오티스/EGO/마탄/21108_cg.webp",
     link: "/ego",
   },
   {
     name: "리세마라 티어표",
     image:
-      "https://limbus-image-bucket.s3.amazonaws.com/로쟈/Identity/남부 리우 협회 4과 부장/10908_normal.webp",
+      "https://dvc5zchnvfexa.cloudfront.net/로쟈/Identity/남부 리우 협회 4과 부장/10908_normal.webp",
     link: "/tier",
   },
   {
     name: "키워드별 인격 분류표",
     image:
-      "https://limbus-image-bucket.s3.ap-northeast-2.amazonaws.com/이스마엘/Identity/흑운회 부조장/10811_gaksung.webp",
+      "https://dvc5zchnvfexa.cloudfront.net/이스마엘/Identity/흑운회 부조장/10811_gaksung.webp",
     link: "/keyword",
   },
 ];
