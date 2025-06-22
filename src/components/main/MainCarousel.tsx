@@ -25,14 +25,14 @@ const MainCarousel = () => {
       {/* 업데이트 */}
 
       <Banner
-        imageUrl="https://limbus-image-bucket.s3.ap-northeast-2.amazonaws.com/뫼르소/Identity/동부 엄지 카포 IIII/10512_gacksung.webp"
+        imageUrl="https://dvc5zchnvfexa.cloudfront.net/뫼르소/Identity/동부 엄지 카포 IIII/10512_gacksung.webp"
         spanText="그렇게 서 있으면,[목]이 떨어질 수밖에"
         headingText="동부 엄지 카포 IIII 뫼르소 추가"
         linkPath="/identity/150"
         linkText="인격 정보 바로가기"
       />
       <Banner
-        imageUrl="https://limbus-image-bucket.s3.ap-northeast-2.amazonaws.com/싱클레어/Identity/동부 엄지 솔다토 II/11013_gacksung.webp"
+        imageUrl="https://dvc5zchnvfexa.cloudfront.net/싱클레어/Identity/동부 엄지 솔다토 II/11013_gacksung.webp"
         spanText="제가 동부의[엄지]라서 다행이라고 생각해요"
         headingText="동부 엄지 솔다토 II 싱클레어 추가"
         linkPath="/identity/149"
