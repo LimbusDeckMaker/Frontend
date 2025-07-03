@@ -10,4 +10,8 @@ services:
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_API_URL=https://baslimbus.store
+<<<<<<< HEAD
     restart: unless-stopped
+=======
+    restart: unless-stopped
+>>>>>>> ae2d87a15d1dca47061c0715e9b51c2e50659593

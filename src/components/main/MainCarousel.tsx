@@ -25,19 +25,19 @@ const MainCarousel = () => {
       {/* 업데이트 */}
 
       <Banner
-        imageUrl="https://dvc5zchnvfexa.cloudfront.net/뫼르소/Identity/동부 엄지 카포 IIII/10512_gacksung.webp"
-        spanText="그렇게 서 있으면,[목]이 떨어질 수밖에"
-        headingText="동부 엄지 카포 IIII 뫼르소 추가"
-        linkPath="/identity/150"
+        imageUrl="https://dvc5zchnvfexa.cloudfront.net/이상/Identity/N사 E.G.O::흉탄/10113_gacksung.webp"
+        spanText="저들은 [전율]하리라."
+        headingText="N사 E.G.O::흉탄 이상 추가"
+        linkPath="/identity/151"
         linkText="인격 정보 바로가기"
       />
-      <Banner
+      {/* <Banner
         imageUrl="https://dvc5zchnvfexa.cloudfront.net/싱클레어/Identity/동부 엄지 솔다토 II/11013_gacksung.webp"
         spanText="제가 동부의[엄지]라서 다행이라고 생각해요"
         headingText="동부 엄지 솔다토 II 싱클레어 추가"
         linkPath="/identity/149"
         linkText="인격 정보 바로가기"
-      />
+      /> */}
       {/* 신규 기능 */}
       {/* 발푸밤 리세 홍보 */}
       {/* <Banner

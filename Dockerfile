@@ -20,4 +20,8 @@ RUN npm run build
 EXPOSE 3000
 
 # 애플리케이션 시작
+<<<<<<< HEAD
 CMD ["npx", "next", "start", "-H", "0.0.0.0"]
+=======
+CMD ["npx", "next", "start", "-H", "0.0.0.0"]
+>>>>>>> ae2d87a15d1dca47061c0715e9b51c2e50659593
