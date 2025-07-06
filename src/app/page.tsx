@@ -20,9 +20,9 @@ export default function Home() {
       <div className="text-white bg-primary-300 rounded-md p-2 md:p-4 lg:p-6 flex flex-col justify-between">
         <div className="text-center">
           안녕하세요. 단빵숲 입니다. <br />
-          서버 점검으로 인해 사이트가 동작하지 않을 수 있습니다.
+          현재 서버 트래픽 부하로 인해 사용이 불가합니다.
           <br />
-          양해 부탁드립니다.
+          불편을 드려 죄송합니다.
         </div>
       </div>
       <div className="w-full mx-auto">
