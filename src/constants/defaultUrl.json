@@ -1,14 +1,62 @@
 [
-  "https://dvc5zchnvfexa.cloudfront.net/이상/Identity/LCB 수감자/10101_normal_info.webp",
-  "https://dvc5zchnvfexa.cloudfront.net/파우스트/Identity/LCB 수감자/10201_normal_info.webp",
-  "https://dvc5zchnvfexa.cloudfront.net/돈키호테/Identity/LCB 수감자/10301_normal_info.webp",
-  "https://dvc5zchnvfexa.cloudfront.net/료슈/Identity/LCB 수감자/10401_normal_info.webp",
-  "https://dvc5zchnvfexa.cloudfront.net/뫼르소/Identity/LCB 수감자/10501_normal_info.webp",
-  "https://dvc5zchnvfexa.cloudfront.net/홍루/Identity/LCB 수감자/10601_normal_info.webp",
-  "https://dvc5zchnvfexa.cloudfront.net/히스클리프/Identity/LCB 수감자/10701_normal_info.webp",
-  "https://dvc5zchnvfexa.cloudfront.net/이스마엘/Identity/LCB 수감자/10801_normal_info.webp",
-  "https://dvc5zchnvfexa.cloudfront.net/로쟈/Identity/LCB 수감자/10901_normal_info.webp",
-  "https://dvc5zchnvfexa.cloudfront.net/싱클레어/Identity/LCB 수감자/11001_normal_info.webp",
-  "https://dvc5zchnvfexa.cloudfront.net/오티스/Identity/LCB 수감자/11101_normal_info.webp",
-  "https://dvc5zchnvfexa.cloudfront.net/그레고르/Identity/LCB 수감자/11201_normal_info.webp"
+  {
+    "id": 76,
+    "url": "https://dvc5zchnvfexa.cloudfront.net/이상/Identity/LCB 수감자/10101_normal_info.webp",
+    "ego": [55]
+  },
+  {
+    "id": 7,
+    "url": "https://dvc5zchnvfexa.cloudfront.net/파우스트/Identity/LCB 수감자/10201_normal_info.webp",
+    "ego": [5]
+  },
+  {
+    "id": 1,
+    "url": "https://dvc5zchnvfexa.cloudfront.net/돈키호테/Identity/LCB 수감자/10301_normal_info.webp",
+    "ego": [1]
+  },
+  {
+    "id": 62,
+    "url": "https://dvc5zchnvfexa.cloudfront.net/료슈/Identity/LCB 수감자/10401_normal_info.webp",
+    "ego": [44]
+  },
+  {
+    "id": 42,
+    "url": "https://dvc5zchnvfexa.cloudfront.net/뫼르소/Identity/LCB 수감자/10501_normal_info.webp",
+    "ego": [29]
+  },
+  {
+    "id": 28,
+    "url": "https://dvc5zchnvfexa.cloudfront.net/홍루/Identity/LCB 수감자/10601_normal_info.webp",
+    "ego": [19]
+  },
+  {
+    "id": 21,
+    "url": "https://dvc5zchnvfexa.cloudfront.net/히스클리프/Identity/LCB 수감자/10701_normal_info.webp",
+    "ego": [14]
+  },
+  {
+    "id": 35,
+    "url": "https://dvc5zchnvfexa.cloudfront.net/이스마엘/Identity/LCB 수감자/10801_normal_info.webp",
+    "ego": [24]
+  },
+  {
+    "id": 55,
+    "url": "https://dvc5zchnvfexa.cloudfront.net/로쟈/Identity/LCB 수감자/10901_normal_info.webp",
+    "ego": [39]
+  },
+  {
+    "id": 68,
+    "url": "https://dvc5zchnvfexa.cloudfront.net/싱클레어/Identity/LCB 수감자/11001_normal_info.webp",
+    "ego": [50]
+  },
+  {
+    "id": 49,
+    "url": "https://dvc5zchnvfexa.cloudfront.net/오티스/Identity/LCB 수감자/11101_normal_info.webp",
+    "ego": [34]
+  },
+  {
+    "id": 14,
+    "url": "https://dvc5zchnvfexa.cloudfront.net/그레고르/Identity/LCB 수감자/11201_normal_info.webp",
+    "ego": [10]
+  }
 ]

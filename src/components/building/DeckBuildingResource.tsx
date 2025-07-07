@@ -13,7 +13,9 @@ export default function DeckBuildingResource() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="text-primary-100 text-3xl">죄악 자원</div>
+      <div className="text-primary-100 text-xl sm:text-2xl md:text-3xl">
+        죄악 자원
+      </div>
       <div className="flex flex-row gap-4 flex-wrap ">
         {resourcesImg.map((resource) => {
           const resourceEngName = getEngName(resource);
@@ -34,7 +36,9 @@ export default function DeckBuildingResource() {
           );
         })}
       </div>
-      <div className="text-primary-100 text-3xl">공격 유형</div>
+      <div className="text-primary-100 text-xl sm:text-2xl md:text-3xl">
+        공격 유형
+      </div>
       <div className="flex flex-row gap-4 flex-wrap">
         {resistanceImg.map((src, idx) => (
           <div key={src} className="flex items-center gap-1">
