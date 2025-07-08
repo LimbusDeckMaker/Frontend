@@ -2,61 +2,137 @@
   {
     "id": 76,
     "url": "https://dvc5zchnvfexa.cloudfront.net/이상/Identity/LCB 수감자/10101_normal_info.webp",
-    "ego": [55]
+    "ego": [55],
+    "orderIndex": 1,
+    "useCase": "참여",
+    "detail": {
+      "resource": [0, 1, 2, 3, 0, 0, 0],
+      "attackType": [0, 3, 0]
+    }
   },
   {
     "id": 7,
     "url": "https://dvc5zchnvfexa.cloudfront.net/파우스트/Identity/LCB 수감자/10201_normal_info.webp",
-    "ego": [5]
+    "ego": [5],
+    "orderIndex": 2,
+    "useCase": "참여",
+    "detail": {
+      "resource": [0, 1, 2, 3, 0, 0, 0],
+      "attackType": [0, 3, 0]
+    }
   },
   {
     "id": 1,
     "url": "https://dvc5zchnvfexa.cloudfront.net/돈키호테/Identity/LCB 수감자/10301_normal_info.webp",
-    "ego": [1]
+    "ego": [1],
+    "orderIndex": 3,
+    "useCase": "참여",
+    "detail": {
+      "resource": [0, 1, 2, 3, 0, 0, 0],
+      "attackType": [0, 3, 0]
+    }
   },
   {
     "id": 62,
     "url": "https://dvc5zchnvfexa.cloudfront.net/료슈/Identity/LCB 수감자/10401_normal_info.webp",
-    "ego": [44]
+    "ego": [44],
+    "orderIndex": 4,
+    "useCase": "참여",
+    "detail": {
+      "resource": [0, 1, 2, 3, 0, 0, 0],
+      "attackType": [0, 3, 0]
+    }
   },
   {
     "id": 42,
     "url": "https://dvc5zchnvfexa.cloudfront.net/뫼르소/Identity/LCB 수감자/10501_normal_info.webp",
-    "ego": [29]
+    "ego": [29],
+    "orderIndex": 5,
+    "useCase": "참여",
+    "detail": {
+      "resource": [0, 1, 2, 3, 0, 0, 0],
+      "attackType": [0, 3, 0]
+    }
   },
   {
     "id": 28,
     "url": "https://dvc5zchnvfexa.cloudfront.net/홍루/Identity/LCB 수감자/10601_normal_info.webp",
-    "ego": [19]
+    "ego": [19],
+    "orderIndex": 6,
+    "useCase": "참여",
+    "detail": {
+      "resource": [0, 1, 2, 3, 0, 0, 0],
+      "attackType": [0, 3, 0]
+    }
   },
   {
     "id": 21,
     "url": "https://dvc5zchnvfexa.cloudfront.net/히스클리프/Identity/LCB 수감자/10701_normal_info.webp",
-    "ego": [14]
+    "ego": [14],
+    "orderIndex": null,
+    "useCase": "서포트",
+    "detail": {
+      "name": "악에 받친",
+      "prop": "질투",
+      "poss": 5,
+      "possType": "보유",
+      "passDescription": "최대 체력이 가장 낮은 아군 1명 타격 스킬의 피해량 +10%"
+    }
   },
   {
     "id": 35,
     "url": "https://dvc5zchnvfexa.cloudfront.net/이스마엘/Identity/LCB 수감자/10801_normal_info.webp",
-    "ego": [24]
+    "ego": [24],
+    "orderIndex": null,
+    "useCase": "서포트",
+    "detail": {
+      "name": "살아남고 말것이라는 마음",
+      "prop": "분노",
+      "poss": 6,
+      "possType": "보유",
+      "passDescription": "현재 체력이 가장 낮은 아군 1명 체력이 50% 미만이면 합 진행 시 합 위력 +1"
+    }
   },
   {
     "id": 55,
     "url": "https://dvc5zchnvfexa.cloudfront.net/로쟈/Identity/LCB 수감자/10901_normal_info.webp",
-    "ego": [39]
+    "ego": [39],
+    "orderIndex": null,
+    "useCase": "서포트",
+    "detail": {
+      "name": "지정 보호",
+      "prop": "분노",
+      "poss": 3,
+      "possType": "공명",
+      "passDescription": "전투 시작 시 현재 체력 비율이 가장 낮은 아군 1명이 자신의 호흡 횟수 1 당 보호막을 1 얻음(최대 10)"
+    }
   },
   {
     "id": 68,
     "url": "https://dvc5zchnvfexa.cloudfront.net/싱클레어/Identity/LCB 수감자/11001_normal_info.webp",
-    "ego": [50]
+    "ego": [50],
+    "orderIndex": null,
+    "useCase": "서포트",
+    "detail": {
+      "name": "피 묻힌 손",
+      "prop": "오만",
+      "poss": 3,
+      "possType": "공명",
+      "passDescription": "속도가 가장 낮은 아군 1명 마지막 스킬의 최종 위력 +1"
+    }
   },
   {
     "id": 49,
     "url": "https://dvc5zchnvfexa.cloudfront.net/오티스/Identity/LCB 수감자/11101_normal_info.webp",
-    "ego": [34]
+    "ego": [34],
+    "orderIndex": null,
+    "useCase": null
   },
   {
     "id": 14,
     "url": "https://dvc5zchnvfexa.cloudfront.net/그레고르/Identity/LCB 수감자/11201_normal_info.webp",
-    "ego": [10]
+    "ego": [10],
+    "orderIndex": null,
+    "useCase": null
   }
 ]
