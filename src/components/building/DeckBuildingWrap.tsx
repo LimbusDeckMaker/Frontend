@@ -116,7 +116,7 @@ export default function DeckBuildingWrap() {
             />
           ))}
           {openModal && selectedIdx !== null && (
-            <CardModal idx={selectedIdx} onClose={() => setOpenModal(false)} />
+            <CardModal onSelectionChange={(e)=>{console.log('onSelectionChange',e)}}  idx={selectedIdx} onClose={() => setOpenModal(false)} />
           )}
         </div>
       </div>
