@@ -17,7 +17,9 @@ export default function DeckBuildingPassive() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="text-primary-100 text-3xl">패시브</div>
+      <div className="text-primary-100 text-xl sm:text-2xl md:text-3xl">
+        패시브
+      </div>
       <div className="flex flex-col gap-2 bg-primary-400 text-white p-2 rounded-lg">
         {passives.map((p, idx) => {
           const resourceEngName = getEngName(p.prop);

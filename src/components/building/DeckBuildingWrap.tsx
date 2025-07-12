@@ -8,9 +8,17 @@ import DeckBuildingPassive from "./DeckBuildingPassive";
 import DeckBuildingResource from "./DeckBuildingResource";
 import CardModal from "./CardModal";
 import defaultCardUrls from "@/constants/defaultUrl.json";
+import { postDeck, getDeck } from "@/api/deckBuilding.api";
+
+interface CardData {
+  id: number;
+  url: string;
+  ego: number[];
+}
 
 export default function DeckBuildingWrap() {
-  const cards = defaultCardUrls;
+  const cards: CardData[] = defaultCardUrls;
+  const [uuid, setUuid] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
 
@@ -46,6 +54,44 @@ export default function DeckBuildingWrap() {
     const walk = x - startXRef.current;
     el.scrollLeft = scrollLeftRef.current - walk;
   };
+
+  // const [deckName, setDeckName] = useState("테스트");
+
+  // 1) API 호출 핸들러
+  const handleExtract = async () => {
+    try {
+      const payload = {
+        name: "테스트",
+        deckList: [
+          {
+            name: "테스트",
+            identityList: cards.map((card) => card.id),
+            egoList: cards.flatMap((card) => card.ego),
+          },
+        ],
+      };
+
+      const res = await postDeck(payload);
+      console.log("POST /deck 성공:", res);
+    } catch (err) {
+      console.error("POST /deck 실패:", err);
+    }
+  };
+
+  const handleLoad = async () => {
+    if (!uuid) {
+      alert("UUID를 입력하세요.");
+      return;
+    }
+    try {
+      const res = await getDeck(uuid);
+      console.log("GET /deck 성공:", res);
+      // TODO: 불러온 데이터를 UI에 반영할 로직
+    } catch (err) {
+      console.error(`GET /deck/${uuid} 실패:`, err);
+    }
+  };
+
   return (
     <div>
       <div className="flex justify-between w-full">
@@ -60,13 +106,27 @@ export default function DeckBuildingWrap() {
             <Button
               className="min-w-[80px] flex gap-2 items-center bg-primary-400 px-2 md:px-4 py-0 md:py-1 font-sansLight text-sm md:text-base text-white hover:bg-primary-300 rounded"
               placeholder={undefined}
+              onClick={handleExtract}
             >
               <span className="pt-1 whitespace-nowrap">추출</span>
+            </Button>
+          </Tooltip>
+          <Tooltip
+            className="bg-primary-500 text-primary-100 text-xs"
+            content={<span>uuid 불러오기</span>}
+          >
+            <Button
+              className="min-w-[80px] flex gap-2 items-center bg-primary-400 px-2 md:px-4 py-0 md:py-1 font-sansLight text-sm md:text-base text-white hover:bg-primary-300 rounded"
+              placeholder={undefined}
+              onClick={handleLoad}
+            >
+              <span className="pt-1 whitespace-nowrap">불러오기</span>
             </Button>
           </Tooltip>
           <div className="relative flex w-full gap-2 md:w-max">
             <Input
               type="search"
+              onChange={(e) => setUuid(e.currentTarget.value)}
               placeholder="id 검색"
               className="!border-none pl-9 placeholder:text-primary-100 text-white focus:!border-primary-300 !focus:ring-0 !focus:outline-none !focus:ring-0 !focus:ring-offset-0 !focus:ring-offset-transparent !focus:border-transparent !focus:ring-transparent"
               containerProps={{
@@ -101,10 +161,10 @@ export default function DeckBuildingWrap() {
         }}
       >
         <div className="grid w-max grid-cols-6 grid-rows-2 gap-4 pt-2 mx-auto">
-          {cards.map((url, idx) => (
+          {cards.map((card, idx) => (
             <DeckBuildingCard
-              key={idx}
-              url={url}
+              key={card.id}
+              url={card.url}
               onClick={
                 !openModal
                   ? () => {
