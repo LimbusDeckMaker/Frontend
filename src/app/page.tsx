@@ -36,14 +36,21 @@ export default function Home() {
         {/* NewsCard가 나머지 40%를 차지하게 설정 */}
 
         <div className="w-full md:w-2/5 flex flex-col gap-3 md:gap-6 ">
-          <div className="flex-1 h-1/2">
+          <div className="basis-3/5">
+            <MenuCard menu={menu[4]} />
+          </div>
+
+          {/* ApplyForm이 전체의 40% 차지 */}
+          <div className="basis-2/5">
             <ApplyForm />
           </div>
-          <div className="flex-1 h-1/2">
-            <Donation />
-          </div>
-          <div className="flex-1 h-1/2">
-            <Toss />
+          <div className="flex flex-row gap-3">
+            <div className="flex-1">
+              <Donation />
+            </div>
+            <div className="flex-1">
+              <Toss />
+            </div>
           </div>
           {/* <Suspense fallback={<Skeleton />}>
             <NewsCard />
@@ -107,5 +114,11 @@ const menu = [
     image:
       "https://dvc5zchnvfexa.cloudfront.net/이스마엘/Identity/흑운회 부조장/10811_gaksung.webp",
     link: "/keyword",
+  },
+  {
+    name: "림북스 바로가기",
+    image:
+      "https://dvc5zchnvfexa.cloudfront.net/이상/Identity/N사 E.G.O::흉탄/10113_normal.webp",
+    link: "https://noita0130.github.io/LimBooks/",
   },
 ];
