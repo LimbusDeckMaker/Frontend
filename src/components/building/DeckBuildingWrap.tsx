@@ -8,7 +8,7 @@ import DeckBuildingPassive from "./DeckBuildingPassive";
 import DeckBuildingResource from "./DeckBuildingResource";
 import CardModal from "./CardModal";
 import defaultCardUrls from "@/constants/defaultUrl.json";
-import { postDeck, getDeck } from "@/api/deckBuilding.api";
+import { postDeck } from "@/api/deckBuilding.api";
 
 interface CardData {
   id: number;
@@ -78,20 +78,6 @@ export default function DeckBuildingWrap() {
     }
   };
 
-  const handleLoad = async () => {
-    if (!uuid) {
-      alert("UUID를 입력하세요.");
-      return;
-    }
-    try {
-      const res = await getDeck(uuid);
-      console.log("GET /deck 성공:", res);
-      // TODO: 불러온 데이터를 UI에 반영할 로직
-    } catch (err) {
-      console.error(`GET /deck/${uuid} 실패:`, err);
-    }
-  };
-
   return (
     <div>
       <div className="flex justify-between w-full">
@@ -111,18 +97,7 @@ export default function DeckBuildingWrap() {
               <span className="pt-1 whitespace-nowrap">추출</span>
             </Button>
           </Tooltip>
-          <Tooltip
-            className="bg-primary-500 text-primary-100 text-xs"
-            content={<span>uuid 불러오기</span>}
-          >
-            <Button
-              className="min-w-[80px] flex gap-2 items-center bg-primary-400 px-2 md:px-4 py-0 md:py-1 font-sansLight text-sm md:text-base text-white hover:bg-primary-300 rounded"
-              placeholder={undefined}
-              onClick={handleLoad}
-            >
-              <span className="pt-1 whitespace-nowrap">불러오기</span>
-            </Button>
-          </Tooltip>
+
           <div className="relative flex w-full gap-2 md:w-max">
             <Input
               type="search"
@@ -176,7 +151,13 @@ export default function DeckBuildingWrap() {
             />
           ))}
           {openModal && selectedIdx !== null && (
-            <CardModal onSelectionChange={(e)=>{console.log('onSelectionChange',e)}}  idx={selectedIdx} onClose={() => setOpenModal(false)} />
+            <CardModal
+              onSelectionChange={(e) => {
+                console.log("onSelectionChange", e);
+              }}
+              idx={selectedIdx}
+              onClose={() => setOpenModal(false)}
+            />
           )}
         </div>
       </div>

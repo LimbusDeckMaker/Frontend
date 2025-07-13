@@ -14,7 +14,7 @@ interface CardModalProps {
 
 interface SelectionData {
   selectedIdentity: string | null;
-  selectedEgos: { [grade: number]: string };
+  selectedEgos: { [grade: string]: string };
 }
 
 // grade → 이미지 맵핑
@@ -25,7 +25,7 @@ const gradeImg = [
 ];
 
 // ego grade → 이미지 맵핑
-const egoGradeImg = {
+const egoGradeImg: { [key: string]: string } = {
   ZAYIN: `/assets/common/ZAYIN.webp`,
   HE: `/assets/common/HE.webp`,
   TETH: `/assets/common/TETH.webp`,
@@ -33,17 +33,17 @@ const egoGradeImg = {
   ALEPH: `/assets/common/ALEPH.webp`,
 };
 
-export default function CardModal({ 
-  idx, 
-  onClose, 
-  onSelectionChange, 
-  initialSelection 
+export default function CardModal({
+  idx,
+  onClose,
+  onSelectionChange,
+  initialSelection,
 }: CardModalProps) {
   const [searchData, setSearchData] = useState<SearchResponse | null>(null);
   const [selectedIdentity, setSelectedIdentity] = useState<string | null>(
     initialSelection?.selectedIdentity || null
   );
-  const [selectedEgos, setSelectedEgos] = useState<{ [grade: number]: string }>(
+  const [selectedEgos, setSelectedEgos] = useState<{ [grade: string]: string }>(
     initialSelection?.selectedEgos || {}
   );
 
@@ -56,15 +56,16 @@ export default function CardModal({
   };
 
   const handleIdentitySelect = (identityName: string) => {
-    const newSelection = identityName === selectedIdentity ? null : identityName;
+    const newSelection =
+      identityName === selectedIdentity ? null : identityName;
     setSelectedIdentity(newSelection);
     onSelectionChange({
       selectedIdentity: newSelection,
-      selectedEgos: selectedEgos
+      selectedEgos: selectedEgos,
     });
   };
 
-  const handleEgoSelect = (egoName: string, grade: number) => {
+  const handleEgoSelect = (egoName: string, grade: number | string) => {
     const newSelectedEgos = { ...selectedEgos };
     if (newSelectedEgos[grade] === egoName) {
       delete newSelectedEgos[grade];
@@ -74,7 +75,7 @@ export default function CardModal({
     setSelectedEgos(newSelectedEgos);
     onSelectionChange({
       selectedIdentity: selectedIdentity,
-      selectedEgos: newSelectedEgos
+      selectedEgos: newSelectedEgos,
     });
   };
 
@@ -95,33 +96,34 @@ export default function CardModal({
       className="fixed inset-0 z-50 flex items-center justify-center bg-primary-500 bg-opacity-50"
       onClick={handleBackgroundClick}
     >
-      <div className="bg-transparent p-2 rounded-lg w-11/12 max-w-md max-h-screen overflow-y-auto shadow-lg">
-        <div className="flex justify-end">
-          <button
-            onClick={onClose}
-            className="text-gray-600 hover:text-gray-800 text-2xl font-bold"
-          >
-            &times;
-          </button>
-        </div>
-
+      <div className="bg-transparent p-2 rounded-lg w-11/12 max-w-md max-h-screen overflow-y-auto shadow-lg ">
         {searchData ? (
-          <div className="">
-            {/* 상단 탭 네비게이션 */}
-            <div className="flex gap-2 mb-4 justify-center">
-              <button className="w-[76px] h-[25px] text-sm text-white rounded-lg font-medium bg-yellow-400">
-                출전
+          <div className="bg-primary-450 border-2 border-primary-400">
+            <div className="flex justify-end px-2">
+              <button
+                onClick={onClose}
+                className="text-gray-600 hover:text-gray-800 text-2xl font-bold"
+              >
+                &times;
               </button>
-              <button className="bg-red-600 w-[76px] h-[25px] text-sm text-white rounded-lg font-medium">
-                서포트
-              </button>
-              <button className="bg-gray-400 w-[76px] h-[25px] text-sm text-white rounded-lg font-medium">
-                사용안함
-              </button>
-              <div className="ml-auto w-[150px]">
-                <select className="bg-primary-400 text-sm text-white py-1.5 px-2 rounded">
-                  <option>편성순서</option>
-                </select>
+            </div>
+            <div className=" text-white">
+              {/* 상단 탭 네비게이션 */}
+              <div className="flex gap-2 mb-4 justify-center px-2">
+                <button className="w-[76px] h-[25px] text-sm  rounded-lg font-medium bg-yellow-400">
+                  출전
+                </button>
+                <button className="bg-red-600 w-[76px] h-[25px] text-sm  rounded-lg font-medium">
+                  서포트
+                </button>
+                <button className="bg-gray-400 w-[76px] h-[25px] text-sm  rounded-lg font-medium">
+                  사용안함
+                </button>
+                <div className="ml-auto w-[150px]">
+                  <select className="bg-primary-400 text-sm  py-1.5 px-2 rounded">
+                    <option>편성순서</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -144,34 +146,45 @@ export default function CardModal({
                     <li
                       key={identity.identityName}
                       className="flex items-center justify-between  cursor-pointer"
-                      onClick={() => handleIdentitySelect(identity.identityName)}
+                      onClick={() =>
+                        handleIdentitySelect(identity.identityName)
+                      }
                     >
                       <div className="w-[100px] h-full mr-3 flex justify-center">
-                          <Image
-                            src={imgSrc}
-                            alt={`Grade ${identity.grade}`}
-                            className="h-[35px] w-auto"
-                            width={100}
-                            height={35}
-                            quality={10}
-                            loading="lazy"
-                          />
+                        <Image
+                          src={imgSrc}
+                          alt={`Grade ${identity.grade}`}
+                          className="h-[35px] w-auto"
+                          width={100}
+                          height={35}
+                          quality={10}
+                          loading="lazy"
+                        />
                       </div>
                       <div className="flex flex-1 h-[30px] items-center justify-center bg-primary-450 text-primary-100 border border-primary-200">
                         <span className="text-sm">{identity.identityName}</span>
-                       
                       </div>
-                      <div className={`w-[24px] h-[24px] rounded-full border-2 ml-2 flex items-center justify-center ${
-                          selectedIdentity === identity.identityName 
-                          ? 'border-primary-200 bg-primary-200' 
-                          : 'border-primary-200'
-                        }`}>
-                          {selectedIdentity === identity.identityName && (
-                            <svg className="w-3 h-3 text-black" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                          )}
-                        </div>
+                      <div
+                        className={`w-[24px] h-[24px] rounded-full border-2 ml-2 flex items-center justify-center ${
+                          selectedIdentity === identity.identityName
+                            ? "border-primary-200 bg-primary-200"
+                            : "border-primary-200"
+                        }`}
+                      >
+                        {selectedIdentity === identity.identityName && (
+                          <svg
+                            className="w-3 h-3 text-black"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        )}
+                      </div>
                     </li>
                   );
                 })}
@@ -194,28 +207,37 @@ export default function CardModal({
                       onClick={() => handleEgoSelect(ego.name, ego.grade)}
                     >
                       <div className="w-[100px] h-full mr-3 flex justify-center">
-                          <Image
-                            src={egoImgSrc}
-                            alt={`EGO Grade ${ego.grade}`}
-                            className="h-[35px] w-auto"
-                            width={100}
-                            height={35}
-                            quality={10}
-                            loading="lazy"
-                          />
+                        <Image
+                          src={egoImgSrc}
+                          alt={`EGO Grade ${ego.grade}`}
+                          className="h-[35px] w-auto"
+                          width={100}
+                          height={35}
+                          quality={10}
+                          loading="lazy"
+                        />
                       </div>
                       <div className="flex flex-1 h-[30px] items-center justify-center bg-primary-450 text-primary-100 border border-primary-200">
                         <span className="text-sm">{ego.name}</span>
-                       
                       </div>
-                      <div className={`w-[24px] h-[24px] rounded-full border-2 ml-2 flex items-center justify-center ${
-                        selectedEgos[ego.grade] === ego.name
-                          ? 'border-primary-200 bg-primary-200'
-                          : 'border-primary-200'
-                      }`}>
+                      <div
+                        className={`w-[24px] h-[24px] rounded-full border-2 ml-2 flex items-center justify-center ${
+                          selectedEgos[ego.grade] === ego.name
+                            ? "border-primary-200 bg-primary-200"
+                            : "border-primary-200"
+                        }`}
+                      >
                         {selectedEgos[ego.grade] === ego.name && (
-                          <svg className="w-3 h-3 text-black" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          <svg
+                            className="w-3 h-3 text-black"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
                           </svg>
                         )}
                       </div>
