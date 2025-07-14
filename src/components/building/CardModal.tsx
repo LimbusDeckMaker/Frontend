@@ -46,6 +46,9 @@ export default function CardModal({
   const [selectedEgos, setSelectedEgos] = useState<{ [grade: string]: string }>(
     initialSelection?.selectedEgos || {}
   );
+  const [activeTab, setActiveTab] = useState<"출전" | "서포트" | "사용X">(
+    "출전"
+  );
 
   const handleBackgroundClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -109,21 +112,45 @@ export default function CardModal({
             </div>
             <div className=" text-white">
               {/* 상단 탭 네비게이션 */}
-              <div className="flex gap-2 mb-4 justify-center px-2">
-                <button className="w-[76px] h-[25px] text-sm  rounded-lg font-medium bg-yellow-400">
+              <div className="flex gap-1 md:gap-2 mb-4 justify-start px-2">
+                <button
+                  onClick={() => setActiveTab("출전")}
+                  className={`w-[60px] h-[20px] text-xs md:w-[76px] md:h-[25px] md:text-sm rounded-lg font-medium bg-yellow-400 text-primary-200 border-2 ${
+                    activeTab === "출전"
+                      ? "bg-yellow-600"
+                      : "border-transparent"
+                  }`}
+                >
                   출전
                 </button>
-                <button className="bg-red-600 w-[76px] h-[25px] text-sm  rounded-lg font-medium">
+                <button
+                  onClick={() => setActiveTab("서포트")}
+                  className={`w-[60px] h-[20px] text-xs md:w-[76px] md:h-[25px] md:text-sm rounded-lg font-medium bg-red-600 text-white border-2 ${
+                    activeTab === "서포트" ? "bg-red-900" : "border-transparent"
+                  }`}
+                >
                   서포트
                 </button>
-                <button className="bg-gray-400 w-[76px] h-[25px] text-sm  rounded-lg font-medium">
-                  사용안함
+                <button
+                  onClick={() => setActiveTab("사용X")}
+                  className={`w-[60px] h-[20px] text-xs md:w-[76px] md:h-[25px] md:text-sm rounded-lg font-medium bg-gray-400 text-white border-2 ${
+                    activeTab === "사용X" ? "bg-gray-900" : "border-transparent"
+                  }`}
+                >
+                  사용X
                 </button>
-                <div className="ml-auto w-[150px]">
-                  <select className="bg-primary-400 text-sm  py-1.5 px-2 rounded">
-                    <option>편성순서</option>
-                  </select>
-                </div>
+                {activeTab === "출전" && (
+                  <div className="ml-auto w-[120px] md:w-[150px]">
+                    <select className="bg-primary-400 text-xs md:text-sm py-1 px-2 rounded">
+                      <option value="">편성순서</option>
+                      {Array.from({ length: 12 }, (_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -150,22 +177,24 @@ export default function CardModal({
                         handleIdentitySelect(identity.identityName)
                       }
                     >
-                      <div className="w-[100px] h-full mr-3 flex justify-center">
+                      <div className="w-[80px] md:w-[100px] h-auto mr-3 flex justify-center">
                         <Image
                           src={imgSrc}
                           alt={`Grade ${identity.grade}`}
-                          className="h-[35px] w-auto"
+                          className="h-[25px] md:h-[35px] w-auto"
                           width={100}
                           height={35}
                           quality={10}
                           loading="lazy"
                         />
                       </div>
-                      <div className="flex flex-1 h-[30px] items-center justify-center bg-primary-450 text-primary-100 border border-primary-200">
-                        <span className="text-sm">{identity.identityName}</span>
+                      <div className="flex flex-1 items-center justify-center bg-primary-450 text-primary-100 border border-primary-200">
+                        <span className="text-xs md:text-sm">
+                          {identity.identityName}
+                        </span>
                       </div>
                       <div
-                        className={`w-[24px] h-[24px] rounded-full border-2 ml-2 flex items-center justify-center ${
+                        className={`w-[20px] md:w-[24px] h-[20px] md:h-[24px] rounded-full border-2 ml-2 flex items-center justify-center ${
                           selectedIdentity === identity.identityName
                             ? "border-primary-200 bg-primary-200"
                             : "border-primary-200"
@@ -206,22 +235,22 @@ export default function CardModal({
                       className="flex items-center justify-between  cursor-pointer"
                       onClick={() => handleEgoSelect(ego.name, ego.grade)}
                     >
-                      <div className="w-[100px] h-full mr-3 flex justify-center">
+                      <div className="w-[80px] md:w-[100px] h-auto mr-3 flex justify-center">
                         <Image
                           src={egoImgSrc}
                           alt={`EGO Grade ${ego.grade}`}
-                          className="h-[35px] w-auto"
+                          className="h-[25px] md:h-[35px] w-auto"
                           width={100}
                           height={35}
                           quality={10}
                           loading="lazy"
                         />
                       </div>
-                      <div className="flex flex-1 h-[30px] items-center justify-center bg-primary-450 text-primary-100 border border-primary-200">
-                        <span className="text-sm">{ego.name}</span>
+                      <div className="flex flex-1 items-center justify-center bg-primary-450 text-primary-100 border border-primary-200">
+                        <span className="text-xs md:text-sm">{ego.name}</span>
                       </div>
                       <div
-                        className={`w-[24px] h-[24px] rounded-full border-2 ml-2 flex items-center justify-center ${
+                        className={`w-[20px] md:w-[24px] h-[20px] md:h-[24px] rounded-full border-2 ml-2 flex items-center justify-center ${
                           selectedEgos[ego.grade] === ego.name
                             ? "border-primary-200 bg-primary-200"
                             : "border-primary-200"
