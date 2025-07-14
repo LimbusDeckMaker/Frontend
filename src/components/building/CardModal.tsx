@@ -2,19 +2,28 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { getSearch } from "@/api/search.api";
-import { SearchResponse } from "@/interfaces/search";
+import {
+  SearchResponse,
+  IdentityListInfoDto,
+  EgoInfoDto,
+} from "@/interfaces/search";
 
 interface CardModalProps {
   idx: number;
   onClose: () => void;
-  onSelectionChange: (data: SelectionData) => void;
+  onSelectionChange: (data: {
+    selectedIdentity: IdentityListInfoDto | null;
+    selectedEgos: EgoInfoDto[];
+  }) => void;
   initialSelection?: SelectionData;
 }
 
 interface SelectionData {
-  selectedIdentity: string | null;
-  selectedEgos: { [grade: string]: string };
+  selectedIdentity: IdentityListInfoDto | null;
+  selectedEgos: EgoInfoDto[];
 }
 
 // grade → 이미지 맵핑
@@ -40,11 +49,12 @@ export default function CardModal({
   initialSelection,
 }: CardModalProps) {
   const [searchData, setSearchData] = useState<SearchResponse | null>(null);
-  const [selectedIdentity, setSelectedIdentity] = useState<string | null>(
-    initialSelection?.selectedIdentity || null
-  );
-  const [selectedEgos, setSelectedEgos] = useState<{ [grade: string]: string }>(
-    initialSelection?.selectedEgos || {}
+  const [selectedIdentityObj, setSelectedIdentityObj] =
+    useState<IdentityListInfoDto | null>(
+      initialSelection?.selectedIdentity || null
+    );
+  const [selectedEgosObjs, setSelectedEgosObjs] = useState<EgoInfoDto[]>(
+    initialSelection?.selectedEgos || []
   );
   const [activeTab, setActiveTab] = useState<"출전" | "서포트" | "사용X">(
     "출전"
@@ -59,26 +69,40 @@ export default function CardModal({
   };
 
   const handleIdentitySelect = (identityName: string) => {
+    const obj =
+      searchData!.identityListInfoDto.find(
+        (i) => i.identityName === identityName
+      ) || null;
     const newSelection =
-      identityName === selectedIdentity ? null : identityName;
-    setSelectedIdentity(newSelection);
+      selectedIdentityObj?.identityName === identityName ? null : obj;
+    setSelectedIdentityObj(newSelection);
     onSelectionChange({
       selectedIdentity: newSelection,
-      selectedEgos: selectedEgos,
+      selectedEgos: selectedEgosObjs,
     });
   };
 
   const handleEgoSelect = (egoName: string, grade: number | string) => {
-    const newSelectedEgos = { ...selectedEgos };
-    if (newSelectedEgos[grade] === egoName) {
-      delete newSelectedEgos[grade];
-    } else {
-      newSelectedEgos[grade] = egoName;
+    const obj = searchData!.egoListInfoDto.find(
+      (e) => e.name === egoName && e.grade === grade
+    );
+    if (!obj) return;
+    const already = selectedEgosObjs.some((e) => e.grade === grade);
+    if (!selectedEgosObjs.some((e) => e.id === obj.id) && already) {
+      toast.warn("같은 grade는 하나만 선택할 수 있습니다!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
     }
-    setSelectedEgos(newSelectedEgos);
+    const exists = selectedEgosObjs.some((e) => e.id === obj.id);
+    const newList = exists
+      ? selectedEgosObjs.filter((e) => e.id !== obj.id)
+      : [...selectedEgosObjs, obj];
+    setSelectedEgosObjs(newList);
     onSelectionChange({
-      selectedIdentity: selectedIdentity,
-      selectedEgos: newSelectedEgos,
+      selectedIdentity: selectedIdentityObj,
+      selectedEgos: newList,
     });
   };
 
@@ -99,6 +123,7 @@ export default function CardModal({
       className="fixed inset-0 z-50 flex items-center justify-center bg-primary-500 bg-opacity-50"
       onClick={handleBackgroundClick}
     >
+      <ToastContainer />
       <div className="bg-transparent p-2 rounded-lg w-11/12 max-w-md max-h-screen overflow-y-auto shadow-lg ">
         {searchData ? (
           <div className="bg-primary-450 border-2 border-primary-400">
@@ -195,12 +220,14 @@ export default function CardModal({
                       </div>
                       <div
                         className={`w-[20px] md:w-[24px] h-[20px] md:h-[24px] rounded-full border-2 ml-2 flex items-center justify-center ${
-                          selectedIdentity === identity.identityName
+                          selectedIdentityObj?.identityName ===
+                          identity.identityName
                             ? "border-primary-200 bg-primary-200"
                             : "border-primary-200"
                         }`}
                       >
-                        {selectedIdentity === identity.identityName && (
+                        {selectedIdentityObj?.identityName ===
+                          identity.identityName && (
                           <svg
                             className="w-3 h-3 text-black"
                             fill="currentColor"
@@ -251,12 +278,12 @@ export default function CardModal({
                       </div>
                       <div
                         className={`w-[20px] md:w-[24px] h-[20px] md:h-[24px] rounded-full border-2 ml-2 flex items-center justify-center ${
-                          selectedEgos[ego.grade] === ego.name
+                          selectedEgosObjs.some((e) => e.id === ego.id)
                             ? "border-primary-200 bg-primary-200"
                             : "border-primary-200"
                         }`}
                       >
-                        {selectedEgos[ego.grade] === ego.name && (
+                        {selectedEgosObjs.some((e) => e.id === ego.id) && (
                           <svg
                             className="w-3 h-3 text-black"
                             fill="currentColor"

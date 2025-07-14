@@ -1,12 +1,14 @@
-// Interfaces for getSearch response
+// @/interfaces/search.ts
 
+// getSearch API의 응답 타입
 export interface SearchResponse {
   searchSinnerId: number;
-  identityListInfoDto: IdentityInfo[];
-  egoListInfoDto: EgoInfo[];
+  identityListInfoDto: IdentityListInfoDto[];
+  egoListInfoDto: EgoInfoDto[];
 }
 
-export interface IdentityInfo {
+// 인격(Identity) 정보 DTO
+export interface IdentityListInfoDto {
   sinnerName: string;
   identityName: string;
   season: number;
@@ -18,11 +20,13 @@ export interface IdentityInfo {
   identitySkillLevelInfos: SkillLevelInfo[];
 }
 
+// 스킬 레벨별 정보
 export interface SkillLevelInfo {
   level: number;
   identitySkillInfos: SkillInfo[];
 }
 
+// 개별 스킬 정보
 export interface SkillInfo {
   skillName: string;
   skillType: string;
@@ -44,7 +48,8 @@ export interface SkillInfo {
   skillNum?: string;
 }
 
-export interface EgoInfo {
+// E.G.O 정보 DTO
+export interface EgoInfoDto {
   id: number;
   character: string;
   name: string;
@@ -63,11 +68,13 @@ export interface EgoInfo {
   egoCorSkills: EgoSkill[];
 }
 
+// E.G.O 패시브 정보
 export interface PassiveInfo {
   name: string;
   content: string;
 }
 
+// E.G.O 스킬 정보
 export interface EgoSkill {
   name: string;
   power: string;

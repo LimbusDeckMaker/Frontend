@@ -9,6 +9,7 @@ import DeckBuildingResource from "./DeckBuildingResource";
 import CardModal from "./CardModal";
 import defaultCardUrls from "@/constants/defaultUrl.json";
 import { postDeck } from "@/api/deckBuilding.api";
+import { IdentityListInfoDto, EgoInfoDto } from "@/interfaces/search";
 
 interface CardData {
   id: number;
@@ -16,11 +17,21 @@ interface CardData {
   ego: number[];
 }
 
+interface SelectionData {
+  selectedIdentity: IdentityListInfoDto | null;
+  selectedEgos: EgoInfoDto[];
+}
+
 export default function DeckBuildingWrap() {
   const cards: CardData[] = defaultCardUrls;
   const [uuid, setUuid] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+
+  const [modalSelection, setModalSelection] = useState<SelectionData>({
+    selectedIdentity: null,
+    selectedEgos: [],
+  });
 
   // 드래그 스크롤용
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -152,8 +163,10 @@ export default function DeckBuildingWrap() {
           ))}
           {openModal && selectedIdx !== null && (
             <CardModal
-              onSelectionChange={(e) => {
-                console.log("onSelectionChange", e);
+              onSelectionChange={(data) => {
+                setModalSelection(data);
+
+                console.log("Modal selection obj:", data);
               }}
               idx={selectedIdx}
               onClose={() => setOpenModal(false)}
