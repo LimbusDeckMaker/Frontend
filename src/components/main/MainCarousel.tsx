@@ -25,11 +25,11 @@ const MainCarousel = () => {
       {/* 업데이트 */}
 
       <Banner
-        imageUrl="https://dvc5zchnvfexa.cloudfront.net/이상/Identity/N사 E.G.O::흉탄/10113_gacksung.webp"
-        spanText="저들은 [전율]하리라."
-        headingText="N사 E.G.O::흉탄 이상 추가"
-        linkPath="/identity/151"
-        linkText="인격 정보 바로가기"
+        imageUrl="/assets/Banner.webp"
+        spanText="많이 참여해 주세요!"
+        headingText="단빵숲 1주년 설문조사"
+        linkPath="https://docs.google.com/forms/d/e/1FAIpQLSc4N5jR0EROvZnrjt5WSasQoNMQkHCPwikOge0zPn4Fys3vGg/viewform"
+        linkText="설문조사 바로가기"
       />
       {/* <Banner
         imageUrl="https://dvc5zchnvfexa.cloudfront.net/싱클레어/Identity/동부 엄지 솔다토 II/11013_gacksung.webp"
