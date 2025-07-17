@@ -10,10 +10,11 @@ import {
   IdentityListInfoDto,
   EgoInfoDto,
 } from "@/interfaces/search";
+import defaultCardUrls from "@/constants/defaultUrl.json";
 
 interface CardModalProps {
   idx: number;
-  onClose: () => void;
+  onClose: (identityId: number, imgUrl: string) => void;
   onSelectionChange: (data: {
     selectedIdentity: IdentityListInfoDto | null;
     selectedEgos: EgoInfoDto[];
@@ -111,6 +112,20 @@ export default function CardModal({
       try {
         const data = await getSearch(idx + 1);
         setSearchData(data);
+        const { id: defaultId, ego: defaultEgoIds } = defaultCardUrls[idx];
+        const preIdentity =
+          data.identityListInfoDto.find(
+            (i: IdentityListInfoDto) => i.identityId === defaultId
+          ) || null;
+        setSelectedIdentityObj(preIdentity);
+        const preEgos = data.egoListInfoDto.filter((e: EgoInfoDto) =>
+          defaultEgoIds.includes(e.id)
+        );
+        setSelectedEgosObjs(preEgos);
+        onSelectionChange({
+          selectedIdentity: preIdentity,
+          selectedEgos: preEgos,
+        });
       } catch (err) {
         console.error("Error fetching identity detail:", err);
       }
@@ -129,7 +144,17 @@ export default function CardModal({
           <div className="bg-primary-450 border-2 border-primary-400">
             <div className="flex justify-end px-2">
               <button
-                onClick={onClose}
+                onClick={() => {
+                  if (!selectedIdentityObj) {
+                    toast("먼저 Identity를 선택해주세요");
+                    return;
+                  }
+                  // afterZoomImage 우선, 없으면 beforeZoomImage
+                  const imgUrl =
+                    selectedIdentityObj.afterZoomImage ||
+                    selectedIdentityObj.beforeZoomImage;
+                  onClose(selectedIdentityObj.identityId, imgUrl);
+                }}
                 className="text-gray-600 hover:text-gray-800 text-2xl font-bold"
               >
                 &times;
@@ -180,7 +205,7 @@ export default function CardModal({
             </div>
 
             {/* 인격 섹션 */}
-            <div className="bg-primary-400 text-white ml-1 w-[110px] h-[30px] text-sm text-center rounded flex items-center justify-center">
+            <div className="bg-primary-400 text-white ml-1 w-[110px] h-[30px] md:w-[80px] md:h-[20px] text-xs md:text-sm text-center rounded flex items-center justify-center">
               인격
             </div>
 
@@ -196,7 +221,7 @@ export default function CardModal({
                     ];
                   return (
                     <li
-                      key={identity.identityName}
+                      key={identity.identityId}
                       className="flex items-center justify-between  cursor-pointer"
                       onClick={() =>
                         handleIdentitySelect(identity.identityName)
@@ -248,14 +273,14 @@ export default function CardModal({
             </div>
 
             {/* E.G.O 섹션 */}
-            <div className="bg-primary-400 text-white ml-3 w-[110px] h-[30px] text-sm text-center rounded flex items-center justify-center">
+            <div className="bg-primary-400 text-white ml-3 w-[110px] h-[30px] md:w-[80px] md:h-[20px] text-xs md:text-sm  text-center rounded flex items-center justify-center">
               E.G.O
             </div>
 
             <div className=" p-3 rounded-b-lg max-h-[25vh] overflow-y-auto">
               <ul className="space-y-0">
                 {searchData.egoListInfoDto.map((ego) => {
-                  const egoImgSrc = egoGradeImg[ego.grade] || egoGradeImg[0];
+                  const egoImgSrc = egoGradeImg[ego.grade];
                   return (
                     <li
                       key={ego.id}
@@ -263,15 +288,17 @@ export default function CardModal({
                       onClick={() => handleEgoSelect(ego.name, ego.grade)}
                     >
                       <div className="w-[80px] md:w-[100px] h-auto mr-3 flex justify-center">
-                        <Image
-                          src={egoImgSrc}
-                          alt={`EGO Grade ${ego.grade}`}
-                          className="h-[25px] md:h-[35px] w-auto"
-                          width={100}
-                          height={35}
-                          quality={10}
-                          loading="lazy"
-                        />
+                        {egoImgSrc && (
+                          <Image
+                            src={egoImgSrc}
+                            alt={`EGO Grade ${ego.grade}`}
+                            className="h-[25px] md:h-[35px] w-auto"
+                            width={100}
+                            height={35}
+                            quality={10}
+                            loading="lazy"
+                          />
+                        )}
                       </div>
                       <div className="flex flex-1 items-center justify-center bg-primary-450 text-primary-100 border border-primary-200">
                         <span className="text-xs md:text-sm">{ego.name}</span>

@@ -23,7 +23,7 @@ interface SelectionData {
 }
 
 export default function DeckBuildingWrap() {
-  const cards: CardData[] = defaultCardUrls;
+  const [cards, setCards] = useState<CardData[]>(defaultCardUrls);
   const [uuid, setUuid] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
@@ -149,7 +149,7 @@ export default function DeckBuildingWrap() {
         <div className="grid w-max grid-cols-6 grid-rows-2 gap-4 pt-2 mx-auto">
           {cards.map((card, idx) => (
             <DeckBuildingCard
-              key={card.id}
+              key={`${card.id}-${idx}`}
               url={card.url}
               onClick={
                 !openModal
@@ -165,11 +165,16 @@ export default function DeckBuildingWrap() {
             <CardModal
               onSelectionChange={(data) => {
                 setModalSelection(data);
-
-                console.log("Modal selection obj:", data);
               }}
               idx={selectedIdx}
-              onClose={() => setOpenModal(false)}
+              onClose={(identityId, imgUrl) => {
+                setCards((prev) => {
+                  const next = [...prev];
+                  next[selectedIdx] = { id: identityId, url: imgUrl };
+                  return next;
+                });
+                setOpenModal(false);
+              }}
             />
           )}
         </div>

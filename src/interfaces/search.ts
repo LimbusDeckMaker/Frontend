@@ -10,6 +10,7 @@ export interface SearchResponse {
 // 인격(Identity) 정보 DTO
 export interface IdentityListInfoDto {
   sinnerName: string;
+  identityId: number;
   identityName: string;
   season: number;
   grade: number;
