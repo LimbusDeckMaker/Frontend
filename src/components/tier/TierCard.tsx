@@ -3,9 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 // 발푸밤
-const walpurgisIds = [13, 34, 83, 84, 103, 119, 120, 131, 132]; // 후파우, 갈루, 마티스, 초돈, 런싱, 적슈, 죽나상, 탕히스, 탕후루
+const walpurgisIds = [13, 34, 83, 84, 103, 119, 120, 131, 132, 152, 153]; // 후파우, 갈루, 마티스, 초돈, 런싱, 적슈, 죽나상, 탕히스, 탕후루, 절쟈, 증돈
 
-const walpurgisON = false;
+const walpurgisON = true;
 
 // 이번 시즌 자판기 획득 불가(전 시즌 인격에서 통상 제외)
 const previousSeasonIds = [123, 124, 125, 126, 127, 128, 130, 134, 138];

@@ -20,7 +20,10 @@ interface Passive {
 const PassiveCard = ({ type, passive }: PassiveCardProps) => {
   const getEngName = useGetEngName();
   // resource 문자열을 ',' 기준으로 분리
-  const resources = passive.resource.split(",").map((res) => res.trim());
+  const resources = (passive.resource ?? "")
+    .split(",")
+    .map((res) => res.trim())
+    .filter((res) => res.length > 0); 
 
   // resQuantity를 십의 자리와 일의 자리로 분리하여 resource 개수에 맞게 배열 생성
   const quantities =

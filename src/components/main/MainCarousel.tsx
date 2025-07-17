@@ -25,19 +25,19 @@ const MainCarousel = () => {
       {/* 업데이트 */}
 
       <Banner
-        imageUrl="/assets/Banner.webp"
-        spanText="많이 참여해 주세요!"
-        headingText="단빵숲 1주년 설문조사"
-        linkPath="https://docs.google.com/forms/d/e/1FAIpQLSc4N5jR0EROvZnrjt5WSasQoNMQkHCPwikOge0zPn4Fys3vGg/viewform"
-        linkText="설문조사 바로가기"
-      />
-      {/* <Banner
-        imageUrl="https://dvc5zchnvfexa.cloudfront.net/싱클레어/Identity/동부 엄지 솔다토 II/11013_gacksung.webp"
-        spanText="제가 동부의[엄지]라서 다행이라고 생각해요"
-        headingText="동부 엄지 솔다토 II 싱클레어 추가"
-        linkPath="/identity/149"
+        imageUrl="https://dvc5zchnvfexa.cloudfront.net/돈키호테/Identity/로보토미 E.G.O::사랑과 증오의 이름으로/10312_gacksung.webp"
+        spanText="200살 할머니의 위험 찬란한 마법소녀 도전기!"
+        headingText="로보토미 E.G.O::사랑과 증오의 이름으로 돈키호테 추가"
+        linkPath="/identity/153"
         linkText="인격 정보 바로가기"
-      /> */}
+      />
+      <Banner
+        imageUrl="https://dvc5zchnvfexa.cloudfront.net/로쟈/Identity/로보토미 E.G.O::눈물로 벼려낸 검/10913_gacksung.webp"
+        spanText="자, 봤지? 난 믿어주면… [배신]하지 않아"
+        headingText="로보토미 E.G.O::눈물로 벼려낸 검 로쟈 추가"
+        linkPath="/identity/152"
+        linkText="인격 정보 바로가기"
+      />
       {/* 신규 기능 */}
       {/* 발푸밤 리세 홍보 */}
       {/* <Banner
